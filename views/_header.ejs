@@ -1,14 +1,53 @@
 <header>
-  <nav class="navbar navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Placement Cell</a>
+  <nav style="background: #00b4db;" class="navbar navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="/dashboard">
+        <img src="https://cdn-icons-png.flaticon.com/512/1924/1924630.png" height="35" alt="Logo"
+          loading="lazy" />
+       <span><b>Placement Cell</b></span> </a>
+      
+      
       <% if(locals.user) { %>
-      <a class="navbar-brand" href="/profile"
-        >Hello <%= locals.user.username%></a
-      >
+      <a class="navbar-brand" href="/profile">
+        <img src="https://cdn-icons-png.flaticon.com/512/2202/2202112.png"  height="25" alt="dp">
+        <span style="font-weight: 600;"> <%= locals.user.username%></span>
+      </a>
       <%}%>
+         <div class="dropdown d-flex">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-mdb-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              Services
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li>
+                <a class="dropdown-item" href="/dashboard">Dashboard</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/student/add-student">Add new Student</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/interview/add-interview">Add Interview</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/download">CSV Report</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/profile">Update Profile</a>
+              </li>
+              
+            </ul>
+            <div class="mx-2">
+              <a class="btn btn-danger" href="/sign-out">Signout</a>
+            </div>
+      </div>
 
-      <form class="d-flex">
+          <!-- <div>
+            <a class="dropdown-item" href="/sign-out">Signout</a>
+          </div> -->
+        
+
+
+          <!-- <form class="d-flex" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <a class="navbar-brand" href="/dashboard">Dashboard</a>
         <a class="navbar-brand" href="/student/add-student">Add new Student</a>
         <a class="navbar-brand" href="/interview/add-interview"
@@ -16,7 +55,7 @@
         >
         <a class="navbar-brand" href="/download">Report</a>
         <a class="navbar-brand" href="/sign-out">Signout</a>
-      </form>
+      </form> -->
     </div>
   </nav>
 </header>
