@@ -36,10 +36,11 @@ module.exports.create = async (req, res) => {
 
 // Enrolling student in the interview
 module.exports.enrollInInterview = async (req, res) => {
+  
   try {
     let interview = await Interview.findById(req.params.id);
     const { email, result } = req.body;
-
+    
     if (interview) {
       let student = await Student.findOne({ email: email });
       if (student) {
@@ -47,7 +48,7 @@ module.exports.enrollInInterview = async (req, res) => {
         let alreadyEnrolled = await Interview.findOne({
           "students.student": student.id,
         });
-
+        
         // preventing student from enrolling in same company more than once
         if (alreadyEnrolled) {
           if (alreadyEnrolled.company === interview.company) {
@@ -79,17 +80,14 @@ module.exports.enrollInInterview = async (req, res) => {
           $push: { interviews: assignedInterview },
         });
 
-        console.log(
-          "success",
-          `${student.name} enrolled in ${interview.company} interview!`
-        );
         return res.redirect("back");
       }
       return res.redirect("back");
     }
     return res.redirect("back");
   } catch (err) {
-    console.log("error", "Error in enrolling interview!");
+    console.log("Error in enrolling interview!",err);
+    return res.redirect("back");
   }
 };
 

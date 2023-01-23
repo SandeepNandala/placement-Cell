@@ -1,15 +1,10 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const app = express();
-const port =8000;
+const port = 8000;
 const db = require("./config/mongoose");
 
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-);
+app.use(express.urlencoded({ extended: false }));
 
 // used for sessions
 const session = require("express-session");
@@ -28,19 +23,22 @@ app.set("views", "./views");
 app.use(
   session({
     name: "placement-cell",
-    secret: "asewe",
+    secret: "aefgd",
     saveUninitialized: false,
     resave: false,
     cookie: {
       maxAge: 1000 * 60 * 100,
     },
     store: MongoStore.create({
-      mongoUrl:
-        "mongodb://127.0.0.1/placement_cell",
+      mongoUrl: "mongodb://127.0.0.1/placement_cell",
       autoRemove: "disabled",
     }),
     function(err) {
-      console.log(err || "connect-mongodb setup ok");
+      if (err) {
+        console.log("error storing the cookie in db ", err);
+        return;
+      }
+      console.log("connect-mongodb setup ok");
     },
   })
 );
@@ -55,7 +53,9 @@ app.use(passport.setAuthenticatedUser);
 app.use(require("./routes"));
 
 // using bodyParser
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+
+app.use(express.json());
 
 // listening to the port 8000;
 app.listen(port, (err) => {
